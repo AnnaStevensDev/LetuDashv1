@@ -7,12 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using Newtonsoft.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace LetuDash
 {
 
     public partial class LetuDash : Form
     {
+
         Panel currentPanel = new Panel();
         public LetuDash()
         {
@@ -37,8 +42,7 @@ namespace LetuDash
             contactPanel.Visible = false;  
             buildingHoursPanel.Visible = false;
 
-            currentPanel = homePanel;
-            feedName.Text = currentPanel.Tag.ToString();
+            loadPanel(homePanel);
         }
 
 
@@ -51,6 +55,7 @@ namespace LetuDash
             else
             {
                 formPanel.Visible = false;
+                getWeather();
             }
 
             currentPanel.Visible = false;
@@ -58,6 +63,19 @@ namespace LetuDash
             newPanel.Visible = true;
             currentPanel = newPanel;
             feedName.Text = currentPanel.Tag.ToString();
+        }
+
+        private void getWeather()
+        {
+            // https://api.openweathermap.org/data/2.5/weather?lat=32.46&lon=-94.72&appid=5a1265d42a4947a39654e1730ae1f12b&units=imperial
+            using (WebClient web = new WebClient()) 
+            {
+                string url = "https://api.openweathermap.org/data/2.5/weather?lat=32.46&lon=-94.72&appid=5a1265d42a4947a39654e1730ae1f12b&units=imperial";
+                var json = web.DownloadString(url);
+                WeatherInfo.root Info = JsonConvert.DeserializeObject<WeatherInfo.root> (json);
+                weatherPicture.ImageLocation = "https://openweathermap.org/img/w/" + Info.weather[0].icon + ".png";
+                degrees.Text = Info.main.temp.ToString();
+            }
         }
 
         private void homeButton_Click(object sender, EventArgs e)

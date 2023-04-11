@@ -368,7 +368,7 @@ namespace LetuDash
             this.degrees.Size = new System.Drawing.Size(58, 60);
             this.degrees.TabIndex = 3;
             this.degrees.Text = "49";
-            this.degrees.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.degrees.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // weatherPicture
             // 
@@ -683,8 +683,8 @@ namespace LetuDash
             this.ClientSize = new System.Drawing.Size(398, 545);
             this.Controls.Add(this.bottomOptions);
             this.Controls.Add(this.topMenu);
-            this.Controls.Add(this.formPanel);
             this.Controls.Add(this.homePanel);
+            this.Controls.Add(this.formPanel);
             this.Name = "LetuDash";
             this.Load += new System.EventHandler(this.letuDash_Load);
             this.topMenu.ResumeLayout(false);
