@@ -121,23 +121,29 @@
   <data name="partlyCloudyIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\partlyCloudyIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="helpButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\helpButton.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="backIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\backIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="blurredCampus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\resources\blurredCampus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="basketball" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\basketball.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="campus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\resources\campus.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="blurredCampus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\blurredCampus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="homeButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\homeButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="backIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\backIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="feedsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\feedsIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="letu icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\letu icon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="feedsIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\feedsIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -154,13 +160,10 @@
   <data name="calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\resources\calendar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="helpButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\resources\helpButton.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="campus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\resources\campus.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="backIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\backIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="letu icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\resources\letu icon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="removalImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\removalImage1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

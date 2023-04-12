@@ -173,6 +173,16 @@ namespace LetuDash.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap letu_icon {
+            get {
+                object obj = ResourceManager.GetObject("letu icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap partlyCloudyIcon {
             get {
                 object obj = ResourceManager.GetObject("partlyCloudyIcon", resourceCulture);
@@ -186,6 +196,16 @@ namespace LetuDash.Properties {
         internal static System.Drawing.Bitmap partlyCloudyIcon1 {
             get {
                 object obj = ResourceManager.GetObject("partlyCloudyIcon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap removalImage {
+            get {
+                object obj = ResourceManager.GetObject("removalImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
