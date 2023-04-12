@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace LetuDash
 {
@@ -117,6 +119,7 @@ namespace LetuDash
             else
             {
                 formPanel.Visible = false;
+                getWeather();
             }
 
             currentPanel.Visible = false;
@@ -136,6 +139,7 @@ namespace LetuDash
                 WeatherInfo.root Info = JsonConvert.DeserializeObject<WeatherInfo.root> (json);
                 weatherPicture.ImageLocation = "https://openweathermap.org/img/w/" + Info.weather[0].icon + ".png";
                 degrees.Text = Convert.ToInt32(Info.main.temp).ToString() + "°F";
+                Console.Write("Degrees: " + Info.main.temp + "\n" );
             }
         }
 
