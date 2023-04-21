@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 
 namespace LetuDash
 {
@@ -30,7 +30,6 @@ namespace LetuDash
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LetuDash));
             this.topMenu = new System.Windows.Forms.TableLayoutPanel();
             this.settingsButton = new System.Windows.Forms.Button();
             this.helpButton = new System.Windows.Forms.Button();
@@ -97,6 +96,13 @@ namespace LetuDash
             this.imScheduleButton = new System.Windows.Forms.Button();
             this.faqButton = new System.Windows.Forms.Button();
             this.formPanel = new System.Windows.Forms.Panel();
+            this.settingsPanel = new System.Windows.Forms.Panel();
+            this.darkButton = new System.Windows.Forms.Button();
+            this.lightButton = new System.Windows.Forms.Button();
+            this.celsiusButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.themeLabel = new System.Windows.Forms.Label();
+            this.fahrenheitButton = new System.Windows.Forms.Button();
             this.feedSelectionPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.pinBuildingHours = new System.Windows.Forms.Button();
             this.pinContact = new System.Windows.Forms.Button();
@@ -107,6 +113,7 @@ namespace LetuDash
             this.pinIMSchedule = new System.Windows.Forms.Button();
             this.pinFAQ = new System.Windows.Forms.Button();
             this.helpPanel = new System.Windows.Forms.Panel();
+
             this.settingsPanel = new System.Windows.Forms.Panel();
             this.buildingHoursPanel = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -156,6 +163,7 @@ namespace LetuDash
             this.contactPhone3 = new System.Windows.Forms.Label();
             this.contactLink3 = new System.Windows.Forms.Label();
             this.contactEmail3 = new System.Windows.Forms.Label();
+
             this.topMenu.SuspendLayout();
             this.homePanel.SuspendLayout();
             this.customFeedLayout.SuspendLayout();
@@ -190,6 +198,7 @@ namespace LetuDash
             this.bottomOptions.SuspendLayout();
             this.feedsPanel.SuspendLayout();
             this.formPanel.SuspendLayout();
+            this.settingsPanel.SuspendLayout();
             this.feedSelectionPanel.SuspendLayout();
             this.buildingHoursPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -222,8 +231,8 @@ namespace LetuDash
             this.topMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.topMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.topMenu.Controls.Add(this.settingsButton, 2, 0);
-            this.topMenu.Controls.Add(this.helpButton, 0, 0);
             this.topMenu.Controls.Add(this.feedName, 1, 0);
+            this.topMenu.Controls.Add(this.helpButton, 0, 0);
             this.topMenu.Location = new System.Drawing.Point(2, 0);
             this.topMenu.Margin = new System.Windows.Forms.Padding(2);
             this.topMenu.Name = "topMenu";
@@ -283,10 +292,10 @@ namespace LetuDash
             this.homePanel.Controls.Add(this.customFeedLayout);
             this.homePanel.Controls.Add(this.weatherPanel);
             this.homePanel.Controls.Add(this.campusPicture);
-            this.homePanel.Location = new System.Drawing.Point(4, 54);
-            this.homePanel.Margin = new System.Windows.Forms.Padding(2);
+
+            this.homePanel.Location = new System.Drawing.Point(5, 48);
             this.homePanel.Name = "homePanel";
-            this.homePanel.Size = new System.Drawing.Size(293, 344);
+            this.homePanel.Size = new System.Drawing.Size(391, 443);
             this.homePanel.TabIndex = 1;
             this.homePanel.Tag = "Home";
             // 
@@ -303,10 +312,9 @@ namespace LetuDash
             this.customFeedLayout.Controls.Add(this.feedPanel8);
             this.customFeedLayout.Controls.Add(this.addRemoveLayout);
             this.customFeedLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.customFeedLayout.Location = new System.Drawing.Point(0, 259);
-            this.customFeedLayout.Margin = new System.Windows.Forms.Padding(2);
+            this.customFeedLayout.Location = new System.Drawing.Point(0, 391);
             this.customFeedLayout.Name = "customFeedLayout";
-            this.customFeedLayout.Size = new System.Drawing.Size(277, 734);
+            this.customFeedLayout.Size = new System.Drawing.Size(369, 976);
             this.customFeedLayout.TabIndex = 2;
             this.customFeedLayout.WrapContents = false;
             // 
@@ -328,6 +336,7 @@ namespace LetuDash
             this.feedPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.feedPanel1.Size = new System.Drawing.Size(272, 81);
             this.feedPanel1.TabIndex = 0;
+            this.feedPanel1.Tag = "notModifiable";
             // 
             // feedImage1
             // 
@@ -403,6 +412,7 @@ namespace LetuDash
             this.feedPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.feedPanel2.Size = new System.Drawing.Size(272, 81);
             this.feedPanel2.TabIndex = 3;
+            this.feedPanel2.Tag = "notModifiable";
             // 
             // feedImage2
             // 
@@ -478,6 +488,7 @@ namespace LetuDash
             this.feedPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.feedPanel3.Size = new System.Drawing.Size(272, 81);
             this.feedPanel3.TabIndex = 6;
+            this.feedPanel3.Tag = "notModifiable";
             // 
             // feedImage3
             // 
@@ -553,6 +564,7 @@ namespace LetuDash
             this.feedPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.feedPanel4.Size = new System.Drawing.Size(272, 81);
             this.feedPanel4.TabIndex = 5;
+            this.feedPanel4.Tag = "notModifiable";
             // 
             // feedImage4
             // 
@@ -628,6 +640,7 @@ namespace LetuDash
             this.feedPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.feedPanel5.Size = new System.Drawing.Size(272, 81);
             this.feedPanel5.TabIndex = 7;
+            this.feedPanel5.Tag = "notModifiable";
             // 
             // feedImage5
             // 
@@ -703,6 +716,7 @@ namespace LetuDash
             this.feedPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.feedPanel6.Size = new System.Drawing.Size(272, 81);
             this.feedPanel6.TabIndex = 8;
+            this.feedPanel6.Tag = "notModifiable";
             // 
             // feedImage6
             // 
@@ -778,6 +792,7 @@ namespace LetuDash
             this.feedPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.feedPanel7.Size = new System.Drawing.Size(272, 81);
             this.feedPanel7.TabIndex = 9;
+            this.feedPanel7.Tag = "notModifiable";
             // 
             // feedImage7
             // 
@@ -853,6 +868,7 @@ namespace LetuDash
             this.feedPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.feedPanel8.Size = new System.Drawing.Size(272, 81);
             this.feedPanel8.TabIndex = 10;
+            this.feedPanel8.Tag = "notModifiable";
             // 
             // feedImage8
             // 
@@ -932,11 +948,11 @@ namespace LetuDash
             this.removeFeedButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.removeFeedButton.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.removeFeedButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.removeFeedButton.Location = new System.Drawing.Point(35, 2);
-            this.removeFeedButton.Margin = new System.Windows.Forms.Padding(2);
+            this.removeFeedButton.Location = new System.Drawing.Point(47, 3);
             this.removeFeedButton.Name = "removeFeedButton";
-            this.removeFeedButton.Size = new System.Drawing.Size(29, 34);
+            this.removeFeedButton.Size = new System.Drawing.Size(39, 42);
             this.removeFeedButton.TabIndex = 3;
+            this.removeFeedButton.Tag = "notModifiable";
             this.removeFeedButton.Text = "-";
             this.removeFeedButton.UseVisualStyleBackColor = false;
             this.removeFeedButton.Click += new System.EventHandler(this.removeFeedButton_Click);
@@ -952,6 +968,7 @@ namespace LetuDash
             this.addFeedButton.Name = "addFeedButton";
             this.addFeedButton.Size = new System.Drawing.Size(28, 34);
             this.addFeedButton.TabIndex = 2;
+            this.addFeedButton.Tag = "notModifiable";
             this.addFeedButton.Text = "+";
             this.addFeedButton.UseVisualStyleBackColor = false;
             this.addFeedButton.Click += new System.EventHandler(this.addFeedButton_Click);
@@ -965,13 +982,13 @@ namespace LetuDash
             this.weatherPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.02538F));
             this.weatherPanel.Controls.Add(this.degrees, 1, 0);
             this.weatherPanel.Controls.Add(this.weatherPicture, 0, 0);
-            this.weatherPanel.Location = new System.Drawing.Point(69, 12);
-            this.weatherPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.weatherPanel.Location = new System.Drawing.Point(85, 33);
             this.weatherPanel.Name = "weatherPanel";
             this.weatherPanel.RowCount = 1;
             this.weatherPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.weatherPanel.Size = new System.Drawing.Size(148, 60);
             this.weatherPanel.TabIndex = 1;
+            this.weatherPanel.Tag = "";
             // 
             // degrees
             // 
@@ -1200,12 +1217,22 @@ namespace LetuDash
             // 
             // formPanel
             // 
+
             this.formPanel.AutoScroll = true;
             this.formPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.formPanel.Controls.Add(this.feedSelectionPanel);
+
             this.formPanel.Controls.Add(this.feedsPanel);
+            this.formPanel.Controls.Add(this.feedSelectionPanel);
             this.formPanel.Controls.Add(this.helpPanel);
-            this.formPanel.Controls.Add(this.settingsPanel);
+            this.formPanel.Controls.Add(this.faqPanel);
+            this.formPanel.Controls.Add(this.imSchedulePanel);
+            this.formPanel.Controls.Add(this.fearTheStingPanel);
+            this.formPanel.Controls.Add(this.allThingsYakPanel);
+            this.formPanel.Controls.Add(this.sagaMenuPanel);
+            this.formPanel.Controls.Add(this.upcomingEventsPanel);
+            this.formPanel.Controls.Add(this.contactPanel);
+
             this.formPanel.Controls.Add(this.buildingHoursPanel);
             this.formPanel.Controls.Add(this.contactPanel);
             this.formPanel.Controls.Add(this.upcomingEventsPanel);
@@ -1219,6 +1246,89 @@ namespace LetuDash
             this.formPanel.Name = "formPanel";
             this.formPanel.Size = new System.Drawing.Size(297, 349);
             this.formPanel.TabIndex = 8;
+            // 
+            // settingsPanel
+            // 
+            this.settingsPanel.Controls.Add(this.darkButton);
+            this.settingsPanel.Controls.Add(this.lightButton);
+            this.settingsPanel.Controls.Add(this.celsiusButton);
+            this.settingsPanel.Controls.Add(this.label1);
+            this.settingsPanel.Controls.Add(this.themeLabel);
+            this.settingsPanel.Controls.Add(this.fahrenheitButton);
+            this.settingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsPanel.Location = new System.Drawing.Point(0, 0);
+            this.settingsPanel.Name = "settingsPanel";
+            this.settingsPanel.Size = new System.Drawing.Size(396, 429);
+            this.settingsPanel.TabIndex = 16;
+            this.settingsPanel.Tag = "Settings";
+            // 
+            // darkButton
+            // 
+            this.darkButton.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.darkButton.Location = new System.Drawing.Point(293, 52);
+            this.darkButton.Name = "darkButton";
+            this.darkButton.Size = new System.Drawing.Size(98, 80);
+            this.darkButton.TabIndex = 8;
+            this.darkButton.Text = "Dark";
+            this.darkButton.UseVisualStyleBackColor = true;
+            this.darkButton.Click += new System.EventHandler(this.darkButton_Click);
+            // 
+            // lightButton
+            // 
+            this.lightButton.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lightButton.Location = new System.Drawing.Point(189, 52);
+            this.lightButton.Name = "lightButton";
+            this.lightButton.Size = new System.Drawing.Size(98, 80);
+            this.lightButton.TabIndex = 7;
+            this.lightButton.Text = "Light";
+            this.lightButton.UseVisualStyleBackColor = true;
+            this.lightButton.Click += new System.EventHandler(this.lightButton_Click);
+            // 
+            // celsiusButton
+            // 
+            this.celsiusButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.celsiusButton.Location = new System.Drawing.Point(293, 150);
+            this.celsiusButton.Name = "celsiusButton";
+            this.celsiusButton.Size = new System.Drawing.Size(98, 80);
+            this.celsiusButton.TabIndex = 6;
+            this.celsiusButton.Text = "Celsius";
+            this.celsiusButton.UseVisualStyleBackColor = true;
+            this.celsiusButton.Click += new System.EventHandler(this.celsiusButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.label1.Location = new System.Drawing.Point(1, 165);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(175, 46);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Change units\r\nof measurement:\r\n";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // themeLabel
+            // 
+            this.themeLabel.AutoSize = true;
+            this.themeLabel.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.themeLabel.Location = new System.Drawing.Point(1, 79);
+            this.themeLabel.Name = "themeLabel";
+            this.themeLabel.Size = new System.Drawing.Size(158, 23);
+            this.themeLabel.TabIndex = 4;
+            this.themeLabel.Text = "Change theme:";
+            this.themeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // fahrenheitButton
+            // 
+            this.fahrenheitButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fahrenheitButton.Location = new System.Drawing.Point(189, 150);
+            this.fahrenheitButton.Name = "fahrenheitButton";
+            this.fahrenheitButton.Size = new System.Drawing.Size(98, 80);
+            this.fahrenheitButton.TabIndex = 2;
+            this.fahrenheitButton.Text = "Fahrenheit";
+            this.fahrenheitButton.UseVisualStyleBackColor = true;
+            this.fahrenheitButton.Click += new System.EventHandler(this.fahrenheitButton_Click);
             // 
             // feedSelectionPanel
             // 
@@ -1373,15 +1483,69 @@ namespace LetuDash
             this.helpPanel.TabIndex = 17;
             this.helpPanel.Tag = "Help";
             // 
-            // settingsPanel
+
+            // faqPanel
             // 
-            this.settingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsPanel.Location = new System.Drawing.Point(0, 0);
-            this.settingsPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.settingsPanel.Name = "settingsPanel";
-            this.settingsPanel.Size = new System.Drawing.Size(297, 349);
-            this.settingsPanel.TabIndex = 16;
-            this.settingsPanel.Tag = "Settings";
+            this.faqPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.faqPanel.Location = new System.Drawing.Point(0, 0);
+            this.faqPanel.Name = "faqPanel";
+            this.faqPanel.Size = new System.Drawing.Size(396, 429);
+            this.faqPanel.TabIndex = 15;
+            this.faqPanel.Tag = "FAQ";
+            // 
+            // imSchedulePanel
+            // 
+            this.imSchedulePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imSchedulePanel.Location = new System.Drawing.Point(0, 0);
+            this.imSchedulePanel.Name = "imSchedulePanel";
+            this.imSchedulePanel.Size = new System.Drawing.Size(396, 429);
+            this.imSchedulePanel.TabIndex = 14;
+            this.imSchedulePanel.Tag = "IM Schedule";
+            // 
+            // fearTheStingPanel
+            // 
+            this.fearTheStingPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fearTheStingPanel.Location = new System.Drawing.Point(0, 0);
+            this.fearTheStingPanel.Name = "fearTheStingPanel";
+            this.fearTheStingPanel.Size = new System.Drawing.Size(396, 429);
+            this.fearTheStingPanel.TabIndex = 13;
+            this.fearTheStingPanel.Tag = "Fear the Sting";
+            // 
+            // allThingsYakPanel
+            // 
+            this.allThingsYakPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.allThingsYakPanel.Location = new System.Drawing.Point(0, 0);
+            this.allThingsYakPanel.Name = "allThingsYakPanel";
+            this.allThingsYakPanel.Size = new System.Drawing.Size(396, 429);
+            this.allThingsYakPanel.TabIndex = 12;
+            this.allThingsYakPanel.Tag = "All Things YAK";
+            // 
+            // sagaMenuPanel
+            // 
+            this.sagaMenuPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sagaMenuPanel.Location = new System.Drawing.Point(0, 0);
+            this.sagaMenuPanel.Name = "sagaMenuPanel";
+            this.sagaMenuPanel.Size = new System.Drawing.Size(396, 429);
+            this.sagaMenuPanel.TabIndex = 11;
+            this.sagaMenuPanel.Tag = "SAGA Menu";
+            // 
+            // upcomingEventsPanel
+            // 
+            this.upcomingEventsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.upcomingEventsPanel.Location = new System.Drawing.Point(0, 0);
+            this.upcomingEventsPanel.Name = "upcomingEventsPanel";
+            this.upcomingEventsPanel.Size = new System.Drawing.Size(396, 429);
+            this.upcomingEventsPanel.TabIndex = 10;
+            this.upcomingEventsPanel.Tag = "Upcoming Events";
+            // 
+            // contactPanel
+            // 
+            this.contactPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.contactPanel.Location = new System.Drawing.Point(0, 0);
+            this.contactPanel.Name = "contactPanel";
+            this.contactPanel.Size = new System.Drawing.Size(396, 429);
+            this.contactPanel.TabIndex = 9;
+            this.contactPanel.Tag = "Contact LETU";
             // 
             // buildingHoursPanel
             // 
@@ -1596,6 +1760,7 @@ namespace LetuDash
             this.buildingHours_pinToHomeButton.Click += new System.EventHandler(this.pinBuildingHours_Click);
             // 
             // contactPanel
+
             // 
             this.contactPanel.AutoScroll = true;
             this.contactPanel.Controls.Add(this.flowLayoutPanel2);
@@ -1629,7 +1794,17 @@ namespace LetuDash
             this.upcomingEventsPanel.TabIndex = 10;
             this.upcomingEventsPanel.Tag = "Upcoming Events";
             // 
-            // upcomingEvents_pinToHomeButton
+            this.helpButton.BackColor = System.Drawing.Color.Transparent;
+            this.helpButton.BackgroundImage = global::LetuDash.Properties.Resources.helpButton;
+            this.helpButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.helpButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.helpButton.Location = new System.Drawing.Point(3, 3);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(92, 58);
+            this.helpButton.TabIndex = 1;
+            this.helpButton.UseVisualStyleBackColor = false;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             this.upcomingEvents_pinToHomeButton.Location = new System.Drawing.Point(15, 17);
             this.upcomingEvents_pinToHomeButton.Name = "upcomingEvents_pinToHomeButton";
@@ -1723,7 +1898,15 @@ namespace LetuDash
             this.imSchedule_pinToHomeButton.UseVisualStyleBackColor = true;
             this.imSchedule_pinToHomeButton.Click += new System.EventHandler(this.pinIMSchedule_Click);
             // 
-            // faqPanel
+            this.weatherPicture.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.weatherPicture.Image = global::LetuDash.Properties.Resources.partlyCloudyIcon1;
+            this.weatherPicture.Location = new System.Drawing.Point(6, 6);
+            this.weatherPicture.Name = "weatherPicture";
+            this.weatherPicture.Size = new System.Drawing.Size(90, 62);
+            this.weatherPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.weatherPicture.TabIndex = 0;
+            this.weatherPicture.TabStop = false;
+            this.weatherPicture.Tag = "notModifiable";
             // 
             this.faqPanel.Controls.Add(this.faq_pinToHomeButton);
             this.faqPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2084,6 +2267,8 @@ namespace LetuDash
             this.feedsPanel.ResumeLayout(false);
             this.formPanel.ResumeLayout(false);
             this.formPanel.PerformLayout();
+            this.settingsPanel.ResumeLayout(false);
+            this.settingsPanel.PerformLayout();
             this.feedSelectionPanel.ResumeLayout(false);
             this.buildingHoursPanel.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -2122,7 +2307,6 @@ namespace LetuDash
 
         private System.Windows.Forms.TableLayoutPanel topMenu;
         private System.Windows.Forms.Panel homePanel;
-        private System.Windows.Forms.PictureBox campusPicture;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.Label feedName;
@@ -2245,6 +2429,7 @@ namespace LetuDash
         private System.Windows.Forms.Label contactPhone3;
         private System.Windows.Forms.Label contactLink3;
         private System.Windows.Forms.Label contactEmail3;
+
     }
 }
 
