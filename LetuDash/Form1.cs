@@ -8,6 +8,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using LetuDash.Properties;
 using Newtonsoft.Json;
 
 namespace LetuDash
@@ -19,18 +21,30 @@ namespace LetuDash
         Panel[] feedPanels;
         Label[] feedHeaders;
         Label[] feedBodies;
+        string theme = "light";
+        string measurementUnit = "F";
+        Dictionary<string, Image> pinImage;
         PictureBox[] feedImages;
         bool removalActive = false;
 
         int numFeeds = 0;
         List<string> currentlyPinnedFeeds= new List<string>();
 
+        Dictionary<string, Image[]> themeImages = new Dictionary<string, Image[]>()
+    {
+        {"homeButton", new Image[] {Properties.Resources.homeButton,Properties.Resources.homeButtonDark} },
+        {"feedsButton", new Image[] {Properties.Resources.feedsIcon,Properties.Resources.feedIconsDark} },
+        {"helpButton", new Image[] {Properties.Resources.help,Properties.Resources.helpDark} },
+        {"settingsButton", new Image[] {Properties.Resources.settingsGear,Properties.Resources.settingsGearDark} },
+        {"campusPicture", new Image[]{Properties.Resources.campus, Properties.Resources.campusDark} }
+    };
+
         public LetuDash()
         {
             InitializeComponent();
         }
 
-        
+
 
         private void letuDash_Load(object sender, EventArgs e)
         {
@@ -41,16 +55,30 @@ namespace LetuDash
             helpPanel.Visible = false;
             settingsPanel.Visible = false;
             faqPanel.Visible = false;
-            imSchedulePanel.Visible = false;   
+            imSchedulePanel.Visible = false;
             fearTheStingPanel.Visible = false;
             allThingsYakPanel.Visible = false;
             sagaMenuPanel.Visible = false;
             upcomingEventsPanel.Visible = false;
-            contactPanel.Visible = false;  
+            contactPanel.Visible = false;
             buildingHoursPanel.Visible = false;
+
+            setUIMode(this);
 
 
             // initializing pinned feed information 
+
+            pinImage = new Dictionary<string, Image>()
+            {
+                {buildingHoursPanel.Tag.ToString(), Properties.Resources.clock},
+                {contactPanel.Tag.ToString(), Properties.Resources.phone},
+                {upcomingEventsPanel.Tag.ToString(), Properties.Resources.calendar},
+                {sagaMenuPanel.Tag.ToString(), Properties.Resources.pizza},
+                {allThingsYakPanel.Tag.ToString(), Properties.Resources.yak},
+                {fearTheStingPanel.Tag.ToString(), Properties.Resources.basketball},
+                {imSchedulePanel.Tag.ToString(), Properties.Resources.volleyball},
+                {faqPanel.Tag.ToString(), Properties.Resources.question}
+            };
 
             feedPanels = new Panel[8]
             {
@@ -134,12 +162,30 @@ namespace LetuDash
             // https://api.openweathermap.org/data/2.5/weather?lat=32.46&lon=-94.72&appid=5a1265d42a4947a39654e1730ae1f12b&units=imperial
             using (WebClient web = new WebClient()) 
             {
-                string url = "https://api.openweathermap.org/data/2.5/weather?lat=32.46&lon=-94.72&appid=5a1265d42a4947a39654e1730ae1f12b&units=imperial";
-                var json = web.DownloadString(url);
-                WeatherInfo.root Info = JsonConvert.DeserializeObject<WeatherInfo.root> (json);
-                weatherPicture.ImageLocation = "https://openweathermap.org/img/w/" + Info.weather[0].icon + ".png";
-                degrees.Text = Convert.ToInt32(Info.main.temp).ToString() + "°F";
-                Console.Write("Degrees: " + Info.main.temp + "\n" );
+                try
+                {
+                    string url;
+                    if (measurementUnit == "F")
+                    {
+                         url = "https://api.openweathermap.org/data/2.5/weather?lat=32.46&lon=-94.72&appid=5a1265d42a4947a39654e1730ae1f12b&units=imperial";
+                    }
+                    else
+                    {
+                         url = "https://api.openweathermap.org/data/2.5/weather?lat=32.46&lon=-94.72&appid=5a1265d42a4947a39654e1730ae1f12b&units=metric";
+                    }
+                    
+                    var json = web.DownloadString(url);
+                    WeatherInfo.root Info = JsonConvert.DeserializeObject<WeatherInfo.root>(json);
+                    weatherPicture.ImageLocation = "https://openweathermap.org/img/w/" + Info.weather[0].icon + ".png";
+                    degrees.Text = Convert.ToInt32(Info.main.temp).ToString() + "°" + measurementUnit;
+                   
+                    
+                    Console.Write("Degrees: " + Info.main.temp + "\n");
+                }
+                catch (System.Net.WebException)
+                {
+                    degrees.Text = "--°F";
+                }
             }
         }
 
@@ -247,6 +293,7 @@ namespace LetuDash
                 feedPanels[numFeeds].Visible = true;
                 feedHeaders[numFeeds].Text = header;
                 feedBodies[numFeeds].Text = body;
+                feedImages[numFeeds].Image = pinImage[header];
                 numFeeds++;
 
                 //Console.Write("Added " + header.ToUpper() + "\n");
@@ -321,7 +368,14 @@ namespace LetuDash
             for (int i = 0; i < feedPanels.Length; i++)
             {
                 feedPanels[i].BackColor = SystemColors.ActiveBorder;
-                feedImages[i].Image = Properties.Resources.calendar;
+                try
+                {
+                    feedImages[i].Image = pinImage[feedHeaders[i].Text];
+                }
+                catch (KeyNotFoundException)
+                {
+                    //pass
+                }
             }
             removalActive = false;
         }
@@ -334,7 +388,7 @@ namespace LetuDash
                 currentlyPinnedFeeds.Remove(header.ToUpper());
                 panel.Visible = false;
                 cancelRemoval();
-                //Console.Write("Removed " + header.ToUpper() + "\n");
+                Console.Write("Removed " + header.ToUpper() + "\n");
             }
         }
 
@@ -378,12 +432,119 @@ namespace LetuDash
             removePinnedFeed(feedPanel8, feedTextHeader8.Text);
         }
 
+        private void setUIMode(Control control)
+        {
+            string tag = "modifiable";
+            if (control.Tag != null)
+            {
+                tag = control.Tag.ToString();
+            }
+
+            if (tag == "notModifiable")
+            {
+                return;
+            }
+
+            if (theme == "light")
+            {
+                control.BackColor = SystemColors.Control;
+                if (control.Text != null)
+                {
+                    control.ForeColor = SystemColors.ControlText;
+                }
+                else
+                {
+                    control.ForeColor = SystemColors.Control;
+                }
+                this.campusPicture.Image = Properties.Resources.campus;
+                if (control.BackgroundImage != null)
+                {
+                    try
+                    {
+                        control.BackgroundImage = themeImages[control.Name][0];
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        Console.WriteLine("Image not found.\n");
+                    }
+                }
+            }
+            else
+            {
+                control.BackColor = Color.FromArgb(24, 24, 24);
+                if (control.Text != null)
+                {
+                    control.ForeColor = SystemColors.Control;
+                }
+                else
+                {
+                    control.ForeColor = Color.FromArgb(24,24,24);
+                }
+                this.campusPicture.Image = Properties.Resources.campusDark1;
+                if (control.BackgroundImage != null)
+                {
+                    try
+                    {
+                        control.BackgroundImage = themeImages[control.Name][1];
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        Console.WriteLine("Image not found.\n");
+                    }
+                }
+            }
+
+                if (control.HasChildren)
+                {
+                    foreach (Control child in control.Controls)
+                    {
+                        setUIMode(child);
+                    }
+                }
+
+
+        }
+
+
+
         private void debugList()
         {
             foreach(String panel in currentlyPinnedFeeds)
             {
                 Console.Write(panel + "\n");
             }
+        }
+
+        private void lightButton_Click(object sender, EventArgs e)
+        {
+            if(theme == "light")
+            {
+                return;
+            }
+            theme = "light";
+            setUIMode(this);
+        }
+
+        private void darkButton_Click(object sender, EventArgs e)
+        {
+            if (theme == "dark")
+            {
+                return;
+            }
+            theme = "dark";
+            setUIMode(this);
+        }
+
+        private void fahrenheitButton_Click(object sender, EventArgs e)
+        {
+            measurementUnit = "F";
+            getWeather();
+        }
+
+        private void celsiusButton_Click(object sender, EventArgs e)
+        {
+            measurementUnit = "C";
+            getWeather();
         }
     }
 

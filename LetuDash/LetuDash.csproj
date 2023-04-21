@@ -94,7 +94,7 @@
     <None Include="Resources\partlyCloudyIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\calendar.png" />
+    <None Include="Resources\Upcoming Events.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\feedsIcon.png" />
@@ -103,6 +103,19 @@
     <None Include="Resources\backIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\yak.png" />
+    <None Include="Resources\volleyball.png" />
+    <None Include="Resources\pizza.png" />
+    <None Include="Resources\clock.png" />
+    <None Include="Resources\phone.png" />
+    <None Include="Resources\question.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\feedIconsDark.png" />
+    <None Include="Resources\gearDark.png" />
+    <None Include="Resources\helpDark.png" />
+    <None Include="Resources\homeButtonDark.png" />
+    <None Include="Resources\campusDark.jpg" />
+    <None Include="Resources\campusDark.png" />
     <Content Include="Resources\removalImage.png" />
     <None Include="Resources\removalImage1.png" />
   </ItemGroup>
