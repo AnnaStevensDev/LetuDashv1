@@ -1,0 +1,14 @@
+[
+	{
+		"name": "AFSC",
+		"times": "Monday-Friday: 6:00am - 2:00am\nSaturday: 10:00am - 2:00am\nSunday: 1:00pm - 2:00pm"
+	},
+	{
+		"name": "Campus Store",
+		"times": "Monday-Friday: 9:00am - 4:00pm\nSaturday: Closed\nSunday: Closed"
+	},
+	{
+		"name": "Solheim",
+		"times": "Monday-Friday: 6:30am - 10:30pm\nSaturday: 10:00am - 8:00pm\nSunday: 1:00pm - 8:00pm"
+	}
+]
