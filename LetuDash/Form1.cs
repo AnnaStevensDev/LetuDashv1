@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -185,11 +186,104 @@ namespace LetuDash
         private void buildingHoursButton_Click(object sender, EventArgs e)
         {
             loadPanel(buildingHoursPanel);
+            loadBuildingHours();
+        }
+
+        private class Building
+        {
+            public string name { get; set; }
+            public string times { get; set; }
+        }
+
+        private void loadBuildingHours()
+        {
+            Label[] buildingBodies = new Label[3]
+            {
+                buildingBody1,
+                buildingBody2,
+                buildingBody3,
+            };
+
+            Label[] buildingHeaders = new Label[3]
+            {
+                buildingHeader1,
+                buildingHeader2,
+                buildingHeader3,
+            };
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\building_hours.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Building> data = JsonConvert.DeserializeObject<List<Building>>(json);
+                int i = 0;
+                foreach(Building B in data)
+                {
+                    buildingHeaders[i].Text = B.name;
+                    buildingBodies[i].Text = B.times;
+                    i++;
+                }
+            }
         }
 
         private void contactLETUButton_Click(object sender, EventArgs e)
         {
             loadPanel(contactPanel);
+            loadContactLETU();
+        }
+
+        private class Contact
+        {
+            public string name { get; set; }
+            public string phone { get; set; }
+            public string email { get; set; }
+            public string link { get; set; }
+        }
+
+        private void loadContactLETU()
+        {
+            Label[] contactHeaders = new Label[3]
+            {
+                contactHeader1,
+                contactHeader2,
+                contactHeader3,
+            };
+
+            Label[] contactPhones = new Label[3]
+            {
+                contactPhone1,
+                contactPhone2,
+                contactPhone3,
+            };
+
+            Label[] contactEmails = new Label[3]
+            {
+                contactEmail1,
+                contactEmail2,
+                contactEmail3,
+            };
+
+            Label[] contactLinks = new Label[3]
+            {
+                contactLink1,
+                contactLink2,
+                contactLink3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\contact_letu.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Contact> data = JsonConvert.DeserializeObject<List<Contact>>(json);
+                int i = 0;
+                foreach (Contact C in data)
+                {
+                    contactHeaders[i].Text = C.name;
+                    contactPhones[i].Text = C.phone;
+                    contactEmails[i].Text = C.email;
+                    contactLinks[i].Text = C.link;
+                    i++;
+                }
+            }
         }
 
         private void upcomingEventsButton_Click(object sender, EventArgs e)
@@ -291,7 +385,7 @@ namespace LetuDash
             pinFeed(imSchedulePanel.Tag.ToString(), "Stay tuned for\nIM Volleyball!");
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void pinFAQ_Click(object sender, EventArgs e)
         {
             pinFeed(faqPanel.Tag.ToString(), "LETUDash v.1.0");
         }
@@ -385,6 +479,7 @@ namespace LetuDash
                 Console.Write(panel + "\n");
             }
         }
+
     }
 
 }

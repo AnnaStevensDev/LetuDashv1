@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Career Services",
+        "phone": "(903) 233-4467",
+        "email": "careerservices@letu.edu",
+        "link": "https://www.letu.edu/opencms/opencmr_Student-Life/career-services/index.html"
+    },
+    {
+        "name": "Information Technology",
+        "phone": "(903) 233-3500",
+        "email": "support@letu.edu",
+        "link": "https://www.letu.edu/it"
+    },
+    {
+        "name": "Center for Counseling",
+        "phone": "(903) 233-3490",
+        "email": "counseling@letu.edu",
+        "link": "https://www.letu.edu/counselingcenter"
+    }
+]
