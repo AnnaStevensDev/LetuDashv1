@@ -1220,10 +1220,10 @@ namespace LetuDash
             // 
             this.formPanel.AutoScroll = true;
             this.formPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.formPanel.Controls.Add(this.settingsPanel);
             this.formPanel.Controls.Add(this.feedsPanel);
             this.formPanel.Controls.Add(this.feedSelectionPanel);
             this.formPanel.Controls.Add(this.helpPanel);
+            this.formPanel.Controls.Add(this.settingsPanel);
             this.formPanel.Controls.Add(this.buildingHoursPanel);
             this.formPanel.Controls.Add(this.contactPanel);
             this.formPanel.Controls.Add(this.upcomingEventsPanel);
@@ -2124,8 +2124,8 @@ namespace LetuDash
             this.ClientSize = new System.Drawing.Size(298, 443);
             this.Controls.Add(this.topMenu);
             this.Controls.Add(this.bottomOptions);
-            this.Controls.Add(this.formPanel);
             this.Controls.Add(this.homePanel);
+            this.Controls.Add(this.formPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LetuDash";
             this.Load += new System.EventHandler(this.letuDash_Load);
