@@ -507,6 +507,7 @@ namespace LetuDash
                 panel.Visible = false;
                 cancelRemoval();
                 Console.Write("Removed " + header + "\n");
+                Properties.Settings.Default.Save();
                 return true;
             }
             else
