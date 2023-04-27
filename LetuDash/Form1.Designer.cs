@@ -227,9 +227,9 @@ namespace LetuDash
             this.topMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.topMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.topMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.topMenu.Controls.Add(this.settingsButton, 2, 0);
+            this.topMenu.Controls.Add(this.helpButton, 0, 1);
+            this.topMenu.Controls.Add(this.settingsButton, 2, 1);
             this.topMenu.Controls.Add(this.feedName, 1, 0);
-            this.topMenu.Controls.Add(this.helpButton, 0, 0);
             this.topMenu.Location = new System.Drawing.Point(2, 0);
             this.topMenu.Margin = new System.Windows.Forms.Padding(2);
             this.topMenu.Name = "topMenu";
@@ -249,7 +249,7 @@ namespace LetuDash
             this.settingsButton.Location = new System.Drawing.Point(224, 2);
             this.settingsButton.Margin = new System.Windows.Forms.Padding(2);
             this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(70, 1);
+            this.settingsButton.Size = new System.Drawing.Size(70, 48);
             this.settingsButton.TabIndex = 0;
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
@@ -277,7 +277,7 @@ namespace LetuDash
             this.helpButton.Location = new System.Drawing.Point(2, 2);
             this.helpButton.Margin = new System.Windows.Forms.Padding(2);
             this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(70, 1);
+            this.helpButton.Size = new System.Drawing.Size(70, 48);
             this.helpButton.TabIndex = 1;
             this.helpButton.UseVisualStyleBackColor = false;
             this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
