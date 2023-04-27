@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using LetuDash.Properties;
 using Newtonsoft.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace LetuDash
 {
@@ -22,15 +23,11 @@ namespace LetuDash
         Panel[] feedPanels;
         Label[] feedHeaders;
         Label[] feedBodies;
-        string theme = "light";
-        string measurementUnit = "F";
         Dictionary<string, Image> pinImage;
         PictureBox[] feedImages;
         bool removalActive = false;
-
         int numFeeds = 0;
-        List<string> currentlyPinnedFeeds= new List<string>();
-
+    
         Dictionary<string, Image[]> themeImages = new Dictionary<string, Image[]>()
     {
         {"homeButton", new Image[] {Properties.Resources.homeButton,Properties.Resources.homeButtonDark} },
@@ -63,11 +60,21 @@ namespace LetuDash
             upcomingEventsPanel.Visible = false;
             contactPanel.Visible = false;
             buildingHoursPanel.Visible = false;
+            if (Properties.Settings.Default.pinnedFeeds != null) { 
+                numFeeds = Properties.Settings.Default.pinnedFeeds.Count;
+            }
+            
 
             setUIMode(this);
 
 
             // initializing pinned feed information 
+            if (Properties.Settings.Default.pinnedFeeds == null)
+            {
+                Properties.Settings.Default.pinnedFeeds = new List<string>();
+                Properties.Settings.Default.pinnedBodies = new List<string>();
+
+            }
 
             pinImage = new Dictionary<string, Image>()
             {
@@ -130,9 +137,22 @@ namespace LetuDash
 
             };
 
+            
             foreach (Panel feed in feedPanels)
             {
                 feed.Visible = false;
+            }
+
+            for (int i = 0; i < numFeeds; i++)
+            {
+                Console.WriteLine("Loading saved panels...");
+                Console.WriteLine("numfeeds = " + numFeeds);
+                feedPanels[i].Visible = true;
+                Console.WriteLine("Feed panel = " + feedPanels[numFeeds].Name);
+                feedHeaders[i].Text = Properties.Settings.Default.pinnedFeeds[i];
+                Console.WriteLine("Feed header = " + feedHeaders[numFeeds].Text);
+                feedBodies[i].Text = Properties.Settings.Default.pinnedBodies[i];
+                feedImages[i].Image = pinImage[Properties.Settings.Default.pinnedFeeds[i]];
             }
 
             loadPanel(homePanel);
@@ -166,7 +186,7 @@ namespace LetuDash
                 try
                 {
                     string url;
-                    if (measurementUnit == "F")
+                    if (Properties.Settings.Default.measurementUnit == 'F')
                     {
                          url = "https://api.openweathermap.org/data/2.5/weather?lat=32.46&lon=-94.72&appid=5a1265d42a4947a39654e1730ae1f12b&units=imperial";
                     }
@@ -178,10 +198,11 @@ namespace LetuDash
                     var json = web.DownloadString(url);
                     WeatherInfo.root Info = JsonConvert.DeserializeObject<WeatherInfo.root>(json);
                     weatherPicture.ImageLocation = "https://openweathermap.org/img/w/" + Info.weather[0].icon + ".png";
-                    degrees.Text = Convert.ToInt32(Info.main.temp).ToString() + "°" + measurementUnit;
+                    degrees.Text = Convert.ToInt32(Info.main.temp).ToString() + "°" + Properties.Settings.Default.measurementUnit;
                    
                     
                     Console.Write("Degrees: " + Info.main.temp + "\n");
+                    Properties.Settings.Default.Save();
                 }
                 catch (System.Net.WebException)
                 {
@@ -381,9 +402,10 @@ namespace LetuDash
         private void pinFeed(string header, string body)
         {
             loadPanel(homePanel);
-            if (!currentlyPinnedFeeds.Contains(header.ToUpper()))
+            if (! Properties.Settings.Default.pinnedFeeds.Contains(header))
             {
-                currentlyPinnedFeeds.Add(header.ToUpper());
+                Properties.Settings.Default.pinnedFeeds.Add(header);
+                Properties.Settings.Default.pinnedBodies.Add(body);
                 feedPanels[numFeeds].Visible = true;
                 feedHeaders[numFeeds].Text = header;
                 feedBodies[numFeeds].Text = body;
@@ -391,6 +413,7 @@ namespace LetuDash
                 numFeeds++;
 
                 //Console.Write("Added " + header.ToUpper() + "\n");
+                Properties.Settings.Default.Save();
             }
 
             
@@ -474,56 +497,68 @@ namespace LetuDash
             removalActive = false;
         }
 
-        private void removePinnedFeed(Panel panel, string header)
+        private bool removePinnedFeed(Panel panel, string header, string body)
         {
             if (removalActive)
             {
                 numFeeds--;
-                currentlyPinnedFeeds.Remove(header.ToUpper());
+                Properties.Settings.Default.pinnedFeeds.Remove(header);
+                Properties.Settings.Default.pinnedBodies.Remove(body);
                 panel.Visible = false;
                 cancelRemoval();
-                Console.Write("Removed " + header.ToUpper() + "\n");
+                Console.Write("Removed " + header + "\n");
+                return true;
             }
+            else
+                return false;
         }
 
         private void feedImage1_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel1, feedTextHeader1.Text);
+            if (!removePinnedFeed(feedPanel1, feedTextHeader1.Text, feedTextBody1.Text))
+                pinnedFeedOpen(feedTextHeader1.Text);
         }
 
         private void feedImage2_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel2, feedTextHeader2.Text);
+            if (!removePinnedFeed(feedPanel2, feedTextHeader2.Text, feedTextBody2.Text))
+                pinnedFeedOpen(feedTextHeader2.Text);
         }
 
         private void feedImage3_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel3, feedTextHeader3.Text);
+            if (!removePinnedFeed(feedPanel3, feedTextHeader3.Text, feedTextBody3.Text))
+                pinnedFeedOpen(feedTextHeader3.Text);
         }
 
         private void feedImage4_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel4, feedTextHeader4.Text);
+            if (!removePinnedFeed(feedPanel4, feedTextHeader4.Text, feedTextBody4.Text))
+                pinnedFeedOpen(feedTextHeader4.Text);
         }
 
         private void feedImage5_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel5, feedTextHeader5.Text);
+            if (!removePinnedFeed(feedPanel5, feedTextHeader5.Text, feedTextBody5.Text))
+                pinnedFeedOpen(feedTextHeader5.Text);
         }
 
         private void feedImage6_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel6, feedTextHeader6.Text);
+            if(!removePinnedFeed(feedPanel6, feedTextHeader6.Text, feedTextBody6.Text))
+                pinnedFeedOpen(feedTextHeader6.Text);
         }
 
         private void feedImage7_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel7, feedTextHeader7.Text);
+            if (!removePinnedFeed(feedPanel7, feedTextHeader7.Text, feedTextBody7.Text))
+                pinnedFeedOpen(feedTextHeader7.Text);
         }
 
         private void feedImage8_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel8, feedTextHeader8.Text);
+            if (!removePinnedFeed(feedPanel8, feedTextHeader8.Text, feedTextBody8.Text))
+                pinnedFeedOpen(feedTextHeader8.Text);
         }
 
         private void setUIMode(Control control)
@@ -539,7 +574,7 @@ namespace LetuDash
                 return;
             }
 
-            if (theme == "light")
+            if (Properties.Settings.Default.theme == "light")
             {
                 control.BackColor = SystemColors.Control;
                 if (control.Text != null)
@@ -596,14 +631,14 @@ namespace LetuDash
                     }
                 }
 
-
+            Properties.Settings.Default.Save();
         }
 
 
 
         private void debugList()
         {
-            foreach(String panel in currentlyPinnedFeeds)
+            foreach(String panel in  Properties.Settings.Default.pinnedFeeds)
             {
                 Console.Write(panel + "\n");
             }
@@ -611,34 +646,72 @@ namespace LetuDash
 
         private void lightButton_Click(object sender, EventArgs e)
         {
-            if(theme == "light")
+            if(Properties.Settings.Default.theme == "light")
             {
                 return;
             }
-            theme = "light";
+           Properties.Settings.Default.theme= "light";
             setUIMode(this);
         }
 
         private void darkButton_Click(object sender, EventArgs e)
         {
-            if (theme == "dark")
+            if (Properties.Settings.Default.theme == "dark")
             {
                 return;
             }
-            theme = "dark";
+           Properties.Settings.Default.theme= "dark";
             setUIMode(this);
         }
 
         private void fahrenheitButton_Click(object sender, EventArgs e)
         {
-            measurementUnit = "F";
+            Properties.Settings.Default.measurementUnit = 'F';
             getWeather();
         }
 
         private void celsiusButton_Click(object sender, EventArgs e)
         {
-            measurementUnit = "C";
+            Properties.Settings.Default.measurementUnit = 'C';
             getWeather();
+        }
+
+
+        private void pinnedFeedOpen(string feedName)
+        {
+           switch (feedName){
+                case "Building Hours":
+                    loadPanel(buildingHoursPanel);
+                    loadBuildingHours();
+                    break;
+                case "Contact LETU":
+                    loadPanel(contactPanel);
+                    loadContactLETU();
+                    break;
+                case "Upcoming Events":
+                    loadPanel(upcomingEventsPanel);
+                    break;
+                case "SAGA Menu":
+                    loadPanel(sagaMenuPanel);
+                    break;
+                case "All Things YAK":
+                    loadPanel(allThingsYakPanel);
+                    break;
+                case "Fear the Sting":
+                    loadPanel(fearTheStingPanel);
+                    break;
+                case "IM Schedule":
+                    loadPanel(imSchedulePanel);
+                    break;
+                case "FAQ":
+                    loadPanel(faqPanel);
+                    break;
+            }
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
         }
     }
 
