@@ -31,9 +31,9 @@ namespace LetuDash
         private void InitializeComponent()
         {
             this.topMenu = new System.Windows.Forms.TableLayoutPanel();
+            this.helpButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.feedName = new System.Windows.Forms.Label();
-            this.helpButton = new System.Windows.Forms.Button();
             this.homePanel = new System.Windows.Forms.Panel();
             this.customFeedLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.feedPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -227,9 +227,9 @@ namespace LetuDash
             this.topMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.topMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.topMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.topMenu.Controls.Add(this.feedName, 0, 1);
             this.topMenu.Controls.Add(this.helpButton, 0, 1);
             this.topMenu.Controls.Add(this.settingsButton, 2, 1);
-            this.topMenu.Controls.Add(this.feedName, 1, 0);
             this.topMenu.Location = new System.Drawing.Point(2, 0);
             this.topMenu.Margin = new System.Windows.Forms.Padding(2);
             this.topMenu.Name = "topMenu";
@@ -238,6 +238,21 @@ namespace LetuDash
             this.topMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.topMenu.Size = new System.Drawing.Size(296, 52);
             this.topMenu.TabIndex = 0;
+            // 
+            // helpButton
+            // 
+            this.helpButton.BackColor = System.Drawing.Color.Transparent;
+            this.helpButton.BackgroundImage = global::LetuDash.Properties.Resources.helpButton;
+            this.helpButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.helpButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.helpButton.Location = new System.Drawing.Point(2, 2);
+            this.helpButton.Margin = new System.Windows.Forms.Padding(2);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(70, 48);
+            this.helpButton.TabIndex = 1;
+            this.helpButton.UseVisualStyleBackColor = false;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // settingsButton
             // 
@@ -262,25 +277,10 @@ namespace LetuDash
             this.feedName.Location = new System.Drawing.Point(76, 0);
             this.feedName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.feedName.Name = "feedName";
-            this.feedName.Size = new System.Drawing.Size(144, 1);
+            this.feedName.Size = new System.Drawing.Size(144, 52);
             this.feedName.TabIndex = 2;
             this.feedName.Text = "FeedName";
             this.feedName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // helpButton
-            // 
-            this.helpButton.BackColor = System.Drawing.Color.Transparent;
-            this.helpButton.BackgroundImage = global::LetuDash.Properties.Resources.helpButton;
-            this.helpButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.helpButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.helpButton.Location = new System.Drawing.Point(2, 2);
-            this.helpButton.Margin = new System.Windows.Forms.Padding(2);
-            this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(70, 48);
-            this.helpButton.TabIndex = 1;
-            this.helpButton.UseVisualStyleBackColor = false;
-            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // homePanel
             // 
@@ -1220,10 +1220,10 @@ namespace LetuDash
             // 
             this.formPanel.AutoScroll = true;
             this.formPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.formPanel.Controls.Add(this.settingsPanel);
             this.formPanel.Controls.Add(this.feedsPanel);
             this.formPanel.Controls.Add(this.feedSelectionPanel);
             this.formPanel.Controls.Add(this.helpPanel);
-            this.formPanel.Controls.Add(this.settingsPanel);
             this.formPanel.Controls.Add(this.buildingHoursPanel);
             this.formPanel.Controls.Add(this.contactPanel);
             this.formPanel.Controls.Add(this.upcomingEventsPanel);
@@ -1409,9 +1409,9 @@ namespace LetuDash
             // darkButton
             // 
             this.darkButton.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.darkButton.Location = new System.Drawing.Point(293, 52);
+            this.darkButton.Location = new System.Drawing.Point(216, 64);
             this.darkButton.Name = "darkButton";
-            this.darkButton.Size = new System.Drawing.Size(98, 80);
+            this.darkButton.Size = new System.Drawing.Size(70, 55);
             this.darkButton.TabIndex = 8;
             this.darkButton.Text = "Dark";
             this.darkButton.UseVisualStyleBackColor = true;
@@ -1420,9 +1420,9 @@ namespace LetuDash
             // lightButton
             // 
             this.lightButton.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lightButton.Location = new System.Drawing.Point(189, 52);
+            this.lightButton.Location = new System.Drawing.Point(136, 63);
             this.lightButton.Name = "lightButton";
-            this.lightButton.Size = new System.Drawing.Size(98, 80);
+            this.lightButton.Size = new System.Drawing.Size(73, 57);
             this.lightButton.TabIndex = 7;
             this.lightButton.Text = "Light";
             this.lightButton.UseVisualStyleBackColor = true;
@@ -1431,9 +1431,9 @@ namespace LetuDash
             // celsiusButton
             // 
             this.celsiusButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.celsiusButton.Location = new System.Drawing.Point(293, 150);
+            this.celsiusButton.Location = new System.Drawing.Point(226, 163);
             this.celsiusButton.Name = "celsiusButton";
-            this.celsiusButton.Size = new System.Drawing.Size(98, 80);
+            this.celsiusButton.Size = new System.Drawing.Size(68, 53);
             this.celsiusButton.TabIndex = 6;
             this.celsiusButton.Text = "Celsius";
             this.celsiusButton.UseVisualStyleBackColor = true;
@@ -1466,9 +1466,9 @@ namespace LetuDash
             // fahrenheitButton
             // 
             this.fahrenheitButton.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fahrenheitButton.Location = new System.Drawing.Point(189, 150);
+            this.fahrenheitButton.Location = new System.Drawing.Point(144, 163);
             this.fahrenheitButton.Name = "fahrenheitButton";
-            this.fahrenheitButton.Size = new System.Drawing.Size(98, 80);
+            this.fahrenheitButton.Size = new System.Drawing.Size(75, 54);
             this.fahrenheitButton.TabIndex = 2;
             this.fahrenheitButton.Text = "Fahrenheit";
             this.fahrenheitButton.UseVisualStyleBackColor = true;
@@ -2124,8 +2124,8 @@ namespace LetuDash
             this.ClientSize = new System.Drawing.Size(298, 443);
             this.Controls.Add(this.topMenu);
             this.Controls.Add(this.bottomOptions);
-            this.Controls.Add(this.homePanel);
             this.Controls.Add(this.formPanel);
+            this.Controls.Add(this.homePanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LetuDash";
             this.Load += new System.EventHandler(this.letuDash_Load);
