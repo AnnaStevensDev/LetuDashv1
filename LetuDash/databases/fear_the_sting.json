@@ -1,0 +1,21 @@
+[
+    {
+        "name": "Women's Soccer",
+        "location": "Home",
+	  "date": "04/03/2023",
+	  "time": "05:00 PM"
+    },
+    {
+        "name": "Men's Basketball",
+        "location": "Home",
+	  "date": "04/03/2023",
+	  "time": "06:30 PM"
+    },
+    {
+        "name": "Women's Volleyball",
+        "location": "Away",
+	  "date": "04/07/2023",
+	  "time": "07:00 PM"
+    },		
+
+]

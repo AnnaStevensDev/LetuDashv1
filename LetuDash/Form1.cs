@@ -88,6 +88,7 @@ namespace LetuDash
                 {faqPanel.Tag.ToString(), Properties.Resources.question}
             };
 
+
             feedPanels = new Panel[8]
             {
                 feedPanel1,
@@ -353,34 +354,295 @@ namespace LetuDash
             }
         }
 
+        private class Event
+        {
+            public string name { get; set; }
+            public string location { get; set; }
+            public string date { get; set; }
+            public string time { get; set; }
+        }
+
         private void upcomingEventsButton_Click(object sender, EventArgs e)
         {
             loadPanel(upcomingEventsPanel);
+            loadUpcomingEvents();
+        }
+
+        private void loadUpcomingEvents()
+        {
+            Label[] upcomingEventsHeaders = new Label[3]
+            {
+                upcomingEventsHeader1,
+                upcomingEventsHeader2,
+                upcomingEventsHeader3,
+            };
+
+            Label[] upcomingEventsLocations = new Label[3]
+            {
+                upcomingEventsLocation1,
+                upcomingEventsLocation2,
+                upcomingEventsLocation3
+            };
+
+            Label[] upcomingEventsDates = new Label[3]
+            {
+                upcomingEventsDate1,
+                upcomingEventsDate2,
+                upcomingEventsDate3,
+            };
+
+            Label[] upcomingEventsTimes = new Label[3]
+            {
+                upcomingEventsTime1,
+                upcomingEventsTime2,
+                upcomingEventsTime3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\upcoming_events.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Event> data = JsonConvert.DeserializeObject<List<Event>>(json);
+                int i = 0;
+                foreach (Event E in data)
+                {
+                    upcomingEventsHeaders[i].Text = E.name;
+                    upcomingEventsLocations[i].Text = E.location;
+                    upcomingEventsDates[i].Text = E.date;
+                    upcomingEventsTimes[i].Text = E.time;
+                    i++;
+                }
+            }
+        }
+
+        private class Menu
+        {
+            public string name { get; set; }
+            public string item1 { get; set; }
+            public string item2 { get; set; }
+            public string item3 { get; set; }
         }
 
         private void sagaMenuButton_Click(object sender, EventArgs e)
         {
             loadPanel(sagaMenuPanel);
+            loadSagaMenu();
+        }
+
+        private void loadSagaMenu()
+        {
+            Label[] sagaMenuHeaders = new Label[3]
+            {
+                sagaMenuHeader1,
+                sagaMenuHeader2,
+                sagaMenuHeader3,
+            };
+
+            Label[] sagaMenuItem1s = new Label[3]
+            {
+                sagaMenuItem1_1,
+                sagaMenuItem1_2,
+                sagaMenuItem1_3,
+            };
+
+            Label[] sagaMenuItem2s = new Label[3]
+            {
+                sagaMenuItem2_1,
+                sagaMenuItem2_2,
+                sagaMenuItem2_3,
+            };
+
+            Label[] sagaMenuItem3s = new Label[3]
+            {
+                sagaMenuItem3_1,
+                sagaMenuItem3_2,
+                sagaMenuItem3_3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\saga_menu.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Menu> data = JsonConvert.DeserializeObject<List<Menu>>(json);
+                int i = 0;
+                foreach (Menu M in data)
+                {
+                    sagaMenuHeaders[i].Text = M.name;
+                    sagaMenuItem1s[i].Text = M.item1;
+                    sagaMenuItem2s[i].Text = M.item2;
+                    sagaMenuItem3s[i].Text = M.item3;
+                    i++;
+                }
+            }
+        }
+
+        private class Yak
+        {
+            public string name { get; set; }
+            public string location { get; set; }
+            public string date { get; set; }
+            public string time { get; set; }
         }
 
         private void allThingsYakButton_Click(object sender, EventArgs e)
         {
             loadPanel(allThingsYakPanel);
+            loadAllThingsYak();
+        }
+
+        private void loadAllThingsYak()
+        {
+            Label[] allThingsYakHeaders = new Label[3]
+            {
+                allThingsYakHeader1,
+                allThingsYakHeader2,
+                allThingsYakHeader3,
+            };
+
+            Label[] allThingsYakLocations = new Label[3]
+            {
+                allThingsYakLocation1,
+                allThingsYakLocation2,
+                allThingsYakLocation3,
+            };
+
+            Label[] allThingsYakDates = new Label[3]
+            {
+                allThingsYakDate1,
+                allThingsYakDate2,
+                allThingsYakDate3,
+            };
+
+            Label[] allThingsYakTimes = new Label[3]
+            {
+                allThingsYakTime1,
+                allThingsYakTime2,
+                allThingsYakTime3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\all_things_yak.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Yak> data = JsonConvert.DeserializeObject<List<Yak>>(json);
+                int i = 0;
+                foreach (Yak Y in data)
+                {
+                    allThingsYakHeaders[i].Text = Y.name;
+                    allThingsYakLocations[i].Text = Y.location;
+                    allThingsYakDates[i].Text = Y.date;
+                    allThingsYakTimes[i].Text = Y.time;
+                    i++;
+                }
+            }
+        }
+
+        private class Sting
+        {
+            public string name { get; set; }
+            public string location { get; set; }
+            public string date { get; set; }
+            public string time { get; set; }
         }
 
         private void fearTheStingButton_Click(object sender, EventArgs e)
         {
             loadPanel(fearTheStingPanel);
+            loadFearTheSting();
+        }
+
+        private void loadFearTheSting()
+        {
+            Label[] fearTheStingHeaders = new Label[3]
+            {
+                fearTheStingHeader1,
+                fearTheStingHeader2,
+                fearTheStingHeader3,
+            };
+
+            Label[] fearTheStingLocations = new Label[3]
+            {
+                fearTheStingLocation1,
+                fearTheStingLocation2,
+                fearTheStingLocation3,
+            };
+
+            Label[] fearTheStingDates = new Label[3]
+            {
+                fearTheStingDate1,
+                fearTheStingDate2,
+                fearTheStingDate3,
+            };
+
+            Label[] fearTheStingTimes = new Label[3]
+            {
+                fearTheStingTime1,
+                fearTheStingTime2,
+                fearTheStingTime3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\fear_the_sting.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Sting> data = JsonConvert.DeserializeObject<List<Sting>>(json);
+                int i = 0;
+                foreach (Sting S in data)
+                {
+                    fearTheStingHeaders[i].Text = S.name;
+                    fearTheStingLocations[i].Text = S.location;
+                    fearTheStingDates[i].Text = S.date;
+                    fearTheStingTimes[i].Text = S.time;
+                    i++;
+                }
+            }
+        }
+
+        private class Ims
+        {
+            public string name { get; set; }
+            public string date { get; set; }
         }
 
         private void solheimScheduleButton_Click(object sender, EventArgs e)
         {
             loadPanel(imSchedulePanel);
+            loadImSchedule();
+        }
+
+        private void loadImSchedule()
+        {
+            Label[] imScheduleHeaders = new Label[3]
+            {
+                imScheduleHeader1,
+                imScheduleHeader2,
+                imScheduleHeader3,
+            };
+
+            Label[] imScheduleDates = new Label[3]
+            {
+                imScheduleDate1,
+                imScheduleDate2,
+                imScheduleDate3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\im_schedule.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Ims> data = JsonConvert.DeserializeObject<List<Ims>>(json);
+                int i = 0;
+                foreach (Ims Im in data)
+                {
+                    imScheduleHeaders[i].Text = Im.name;
+                    imScheduleDates[i].Text = Im.date;
+                    i++;
+                }
+            }
         }
 
         private void faqButton_Click(object sender, EventArgs e)
         {
-            
             loadPanel(faqPanel);
         }
 
@@ -691,18 +953,23 @@ namespace LetuDash
                     break;
                 case "Upcoming Events":
                     loadPanel(upcomingEventsPanel);
+                    loadUpcomingEvents();
                     break;
                 case "SAGA Menu":
                     loadPanel(sagaMenuPanel);
+                    loadSagaMenu();
                     break;
                 case "All Things YAK":
                     loadPanel(allThingsYakPanel);
+                    loadAllThingsYak();
                     break;
                 case "Fear the Sting":
                     loadPanel(fearTheStingPanel);
+                    loadFearTheSting();
                     break;
                 case "IM Schedule":
                     loadPanel(imSchedulePanel);
+                    loadImSchedule();
                     break;
                 case "FAQ":
                     loadPanel(faqPanel);
