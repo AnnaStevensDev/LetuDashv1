@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Kahootenanny",
+        "location": "Belcher Center",
+        "date": "04/14/2023",
+        "time": "07:00 PM"
+    },	
+    {
+        "name": "Spring Concert",
+        "location": "Speer Chapel",
+        "date": "04/22/2023",
+        "time": "07:00 PM"
+    },
+    {
+        "name": "Little League Wiffle Ball",
+        "location": "IM Fields",
+        "date": "04/29/2023",
+        "time": "05:00 - 08:00 PM"
+    },
+]

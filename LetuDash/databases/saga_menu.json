@@ -1,0 +1,21 @@
+[
+    {
+        "name": "Breakfast",
+        "item1": "Eggs",
+	  "item2": "Bacon",
+	  "item3": "Sausage",
+    },
+    {
+        "name": "Lunch",
+        "item1": "Cheeseburger",
+	  "item2": "Sandwitch",
+	  "item3": "Salad",
+    },
+    {
+        "name": "Dinner",
+        "item1": "Tacos",
+	  "item2": "Soup",
+	  "item3": "Pizza",
+    },		
+
+]

@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using LetuDash.Properties;
 using Newtonsoft.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace LetuDash
 {
@@ -22,14 +23,19 @@ namespace LetuDash
         Panel[] feedPanels;
         Label[] feedHeaders;
         Label[] feedBodies;
-        string theme = "light";
-        string measurementUnit = "F";
         Dictionary<string, Image> pinImage;
         PictureBox[] feedImages;
         bool removalActive = false;
-
         int numFeeds = 0;
-        List<string> currentlyPinnedFeeds= new List<string>();
+    
+        Dictionary<string, Image[]> themeImages = new Dictionary<string, Image[]>()
+    {
+        {"homeButton", new Image[] {Properties.Resources.homeButton,Properties.Resources.homeButtonDark} },
+        {"feedsButton", new Image[] {Properties.Resources.feedsIcon,Properties.Resources.feedIconsDark} },
+        {"helpButton", new Image[] {Properties.Resources.help,Properties.Resources.helpDark} },
+        {"settingsButton", new Image[] {Properties.Resources.settingsGear,Properties.Resources.settingsGearDark} },
+        {"campusPicture", new Image[]{Properties.Resources.campus, Properties.Resources.campusDark} }
+    };
 
         Dictionary<string, Image[]> themeImages = new Dictionary<string, Image[]>()
     {
@@ -43,6 +49,7 @@ namespace LetuDash
         public LetuDash()
         {
             InitializeComponent();
+            InitializeHelpControls();
         }
 
 
@@ -63,11 +70,36 @@ namespace LetuDash
             upcomingEventsPanel.Visible = false;
             contactPanel.Visible = false;
             buildingHoursPanel.Visible = false;
+            if (Properties.Settings.Default.pinnedFeeds != null) { 
+                numFeeds = Properties.Settings.Default.pinnedFeeds.Count;
+            }
+            
+
+            setUIMode(this);
 
             setUIMode(this);
 
 
             // initializing pinned feed information 
+            if (Properties.Settings.Default.pinnedFeeds == null)
+            {
+                Properties.Settings.Default.pinnedFeeds = new List<string>();
+                Properties.Settings.Default.pinnedBodies = new List<string>();
+
+            }
+
+            pinImage = new Dictionary<string, Image>()
+            {
+                {buildingHoursPanel.Tag.ToString(), Properties.Resources.clock},
+                {contactPanel.Tag.ToString(), Properties.Resources.phone},
+                {upcomingEventsPanel.Tag.ToString(), Properties.Resources.calendar},
+                {sagaMenuPanel.Tag.ToString(), Properties.Resources.pizza},
+                {allThingsYakPanel.Tag.ToString(), Properties.Resources.yak},
+                {fearTheStingPanel.Tag.ToString(), Properties.Resources.basketball},
+                {imSchedulePanel.Tag.ToString(), Properties.Resources.volleyball},
+                {faqPanel.Tag.ToString(), Properties.Resources.question}
+            };
+
 
             pinImage = new Dictionary<string, Image>()
             {
@@ -130,9 +162,22 @@ namespace LetuDash
 
             };
 
+            
             foreach (Panel feed in feedPanels)
             {
                 feed.Visible = false;
+            }
+
+            for (int i = 0; i < numFeeds; i++)
+            {
+                Console.WriteLine("Loading saved panels...");
+                Console.WriteLine("numfeeds = " + numFeeds);
+                feedPanels[i].Visible = true;
+                Console.WriteLine("Feed panel = " + feedPanels[numFeeds].Name);
+                feedHeaders[i].Text = Properties.Settings.Default.pinnedFeeds[i];
+                Console.WriteLine("Feed header = " + feedHeaders[numFeeds].Text);
+                feedBodies[i].Text = Properties.Settings.Default.pinnedBodies[i];
+                feedImages[i].Image = pinImage[Properties.Settings.Default.pinnedFeeds[i]];
             }
 
             loadPanel(homePanel);
@@ -166,7 +211,7 @@ namespace LetuDash
                 try
                 {
                     string url;
-                    if (measurementUnit == "F")
+                    if (Properties.Settings.Default.measurementUnit == 'F')
                     {
                          url = "https://api.openweathermap.org/data/2.5/weather?lat=32.46&lon=-94.72&appid=5a1265d42a4947a39654e1730ae1f12b&units=imperial";
                     }
@@ -178,10 +223,11 @@ namespace LetuDash
                     var json = web.DownloadString(url);
                     WeatherInfo.root Info = JsonConvert.DeserializeObject<WeatherInfo.root>(json);
                     weatherPicture.ImageLocation = "https://openweathermap.org/img/w/" + Info.weather[0].icon + ".png";
-                    degrees.Text = Convert.ToInt32(Info.main.temp).ToString() + "°" + measurementUnit;
+                    degrees.Text = Convert.ToInt32(Info.main.temp).ToString() + "°" + Properties.Settings.Default.measurementUnit;
                    
                     
                     Console.Write("Degrees: " + Info.main.temp + "\n");
+                    Properties.Settings.Default.Save();
                 }
                 catch (System.Net.WebException)
                 {
@@ -227,6 +273,60 @@ namespace LetuDash
             }
 
             loadPanel(helpPanel);
+            loadHelpInfo();
+        }
+
+        private class HelpInfo
+        {
+            public string title { get; set; }
+            public string content { get; set; }
+        }
+        private Label helpTitle;
+        private TextBox helpContent;
+        private void InitializeHelpControls()
+        {
+            if (helpPanel == null)
+            {
+                helpPanel = new Panel
+                {
+                    Name = "helpPanel",
+                    Location = new Point(0, 0),
+                    Size = new Size(500, 300),
+                    Visible = false,
+                };
+                this.Controls.Add(helpPanel);
+            }
+
+            helpTitle = new Label
+            {
+                Name = "helpTitle",
+                Location = new Point(10, 10),
+                AutoSize = true,
+                Font = new Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+            };
+            helpPanel.Controls.Add(helpTitle);
+
+            helpContent = new TextBox
+            {
+                Name = "helpContent",
+                Location = new Point(10, 40),
+                Size = new Size(300, 200),
+                Multiline = true,
+                ReadOnly = true,
+                ScrollBars = ScrollBars.Vertical
+            };
+            helpPanel.Controls.Add(helpContent);
+        }
+        public void loadHelpInfo()
+        {
+            using (StreamReader r = new StreamReader("..\\..\\databases\\help_info.json"))
+            {
+                string json = r.ReadToEnd();
+                HelpInfo data = JsonConvert.DeserializeObject<HelpInfo>(json);
+
+                helpTitle.Text = data.title;
+                helpContent.Text = data.content;
+            }
         }
 
         private void buildingHoursButton_Click(object sender, EventArgs e)
@@ -332,34 +432,295 @@ namespace LetuDash
             }
         }
 
+        private class Event
+        {
+            public string name { get; set; }
+            public string location { get; set; }
+            public string date { get; set; }
+            public string time { get; set; }
+        }
+
         private void upcomingEventsButton_Click(object sender, EventArgs e)
         {
             loadPanel(upcomingEventsPanel);
+            loadUpcomingEvents();
+        }
+
+        private void loadUpcomingEvents()
+        {
+            Label[] upcomingEventsHeaders = new Label[3]
+            {
+                upcomingEventsHeader1,
+                upcomingEventsHeader2,
+                upcomingEventsHeader3,
+            };
+
+            Label[] upcomingEventsLocations = new Label[3]
+            {
+                upcomingEventsLocation1,
+                upcomingEventsLocation2,
+                upcomingEventsLocation3
+            };
+
+            Label[] upcomingEventsDates = new Label[3]
+            {
+                upcomingEventsDate1,
+                upcomingEventsDate2,
+                upcomingEventsDate3,
+            };
+
+            Label[] upcomingEventsTimes = new Label[3]
+            {
+                upcomingEventsTime1,
+                upcomingEventsTime2,
+                upcomingEventsTime3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\upcoming_events.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Event> data = JsonConvert.DeserializeObject<List<Event>>(json);
+                int i = 0;
+                foreach (Event E in data)
+                {
+                    upcomingEventsHeaders[i].Text = E.name;
+                    upcomingEventsLocations[i].Text = E.location;
+                    upcomingEventsDates[i].Text = E.date;
+                    upcomingEventsTimes[i].Text = E.time;
+                    i++;
+                }
+            }
+        }
+
+        private class Menu
+        {
+            public string name { get; set; }
+            public string item1 { get; set; }
+            public string item2 { get; set; }
+            public string item3 { get; set; }
         }
 
         private void sagaMenuButton_Click(object sender, EventArgs e)
         {
             loadPanel(sagaMenuPanel);
+            loadSagaMenu();
+        }
+
+        private void loadSagaMenu()
+        {
+            Label[] sagaMenuHeaders = new Label[3]
+            {
+                sagaMenuHeader1,
+                sagaMenuHeader2,
+                sagaMenuHeader3,
+            };
+
+            Label[] sagaMenuItem1s = new Label[3]
+            {
+                sagaMenuItem1_1,
+                sagaMenuItem1_2,
+                sagaMenuItem1_3,
+            };
+
+            Label[] sagaMenuItem2s = new Label[3]
+            {
+                sagaMenuItem2_1,
+                sagaMenuItem2_2,
+                sagaMenuItem2_3,
+            };
+
+            Label[] sagaMenuItem3s = new Label[3]
+            {
+                sagaMenuItem3_1,
+                sagaMenuItem3_2,
+                sagaMenuItem3_3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\saga_menu.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Menu> data = JsonConvert.DeserializeObject<List<Menu>>(json);
+                int i = 0;
+                foreach (Menu M in data)
+                {
+                    sagaMenuHeaders[i].Text = M.name;
+                    sagaMenuItem1s[i].Text = M.item1;
+                    sagaMenuItem2s[i].Text = M.item2;
+                    sagaMenuItem3s[i].Text = M.item3;
+                    i++;
+                }
+            }
+        }
+
+        private class Yak
+        {
+            public string name { get; set; }
+            public string location { get; set; }
+            public string date { get; set; }
+            public string time { get; set; }
         }
 
         private void allThingsYakButton_Click(object sender, EventArgs e)
         {
             loadPanel(allThingsYakPanel);
+            loadAllThingsYak();
+        }
+
+        private void loadAllThingsYak()
+        {
+            Label[] allThingsYakHeaders = new Label[3]
+            {
+                allThingsYakHeader1,
+                allThingsYakHeader2,
+                allThingsYakHeader3,
+            };
+
+            Label[] allThingsYakLocations = new Label[3]
+            {
+                allThingsYakLocation1,
+                allThingsYakLocation2,
+                allThingsYakLocation3,
+            };
+
+            Label[] allThingsYakDates = new Label[3]
+            {
+                allThingsYakDate1,
+                allThingsYakDate2,
+                allThingsYakDate3,
+            };
+
+            Label[] allThingsYakTimes = new Label[3]
+            {
+                allThingsYakTime1,
+                allThingsYakTime2,
+                allThingsYakTime3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\all_things_yak.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Yak> data = JsonConvert.DeserializeObject<List<Yak>>(json);
+                int i = 0;
+                foreach (Yak Y in data)
+                {
+                    allThingsYakHeaders[i].Text = Y.name;
+                    allThingsYakLocations[i].Text = Y.location;
+                    allThingsYakDates[i].Text = Y.date;
+                    allThingsYakTimes[i].Text = Y.time;
+                    i++;
+                }
+            }
+        }
+
+        private class Sting
+        {
+            public string name { get; set; }
+            public string location { get; set; }
+            public string date { get; set; }
+            public string time { get; set; }
         }
 
         private void fearTheStingButton_Click(object sender, EventArgs e)
         {
             loadPanel(fearTheStingPanel);
+            loadFearTheSting();
+        }
+
+        private void loadFearTheSting()
+        {
+            Label[] fearTheStingHeaders = new Label[3]
+            {
+                fearTheStingHeader1,
+                fearTheStingHeader2,
+                fearTheStingHeader3,
+            };
+
+            Label[] fearTheStingLocations = new Label[3]
+            {
+                fearTheStingLocation1,
+                fearTheStingLocation2,
+                fearTheStingLocation3,
+            };
+
+            Label[] fearTheStingDates = new Label[3]
+            {
+                fearTheStingDate1,
+                fearTheStingDate2,
+                fearTheStingDate3,
+            };
+
+            Label[] fearTheStingTimes = new Label[3]
+            {
+                fearTheStingTime1,
+                fearTheStingTime2,
+                fearTheStingTime3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\fear_the_sting.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Sting> data = JsonConvert.DeserializeObject<List<Sting>>(json);
+                int i = 0;
+                foreach (Sting S in data)
+                {
+                    fearTheStingHeaders[i].Text = S.name;
+                    fearTheStingLocations[i].Text = S.location;
+                    fearTheStingDates[i].Text = S.date;
+                    fearTheStingTimes[i].Text = S.time;
+                    i++;
+                }
+            }
+        }
+
+        private class Ims
+        {
+            public string name { get; set; }
+            public string date { get; set; }
         }
 
         private void solheimScheduleButton_Click(object sender, EventArgs e)
         {
             loadPanel(imSchedulePanel);
+            loadImSchedule();
+        }
+
+        private void loadImSchedule()
+        {
+            Label[] imScheduleHeaders = new Label[3]
+            {
+                imScheduleHeader1,
+                imScheduleHeader2,
+                imScheduleHeader3,
+            };
+
+            Label[] imScheduleDates = new Label[3]
+            {
+                imScheduleDate1,
+                imScheduleDate2,
+                imScheduleDate3,
+            };
+
+
+            using (StreamReader r = new StreamReader("..\\..\\databases\\im_schedule.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Ims> data = JsonConvert.DeserializeObject<List<Ims>>(json);
+                int i = 0;
+                foreach (Ims Im in data)
+                {
+                    imScheduleHeaders[i].Text = Im.name;
+                    imScheduleDates[i].Text = Im.date;
+                    i++;
+                }
+            }
         }
 
         private void faqButton_Click(object sender, EventArgs e)
         {
-            
             loadPanel(faqPanel);
         }
 
@@ -381,9 +742,10 @@ namespace LetuDash
         private void pinFeed(string header, string body)
         {
             loadPanel(homePanel);
-            if (!currentlyPinnedFeeds.Contains(header.ToUpper()))
+            if (! Properties.Settings.Default.pinnedFeeds.Contains(header))
             {
-                currentlyPinnedFeeds.Add(header.ToUpper());
+                Properties.Settings.Default.pinnedFeeds.Add(header);
+                Properties.Settings.Default.pinnedBodies.Add(body);
                 feedPanels[numFeeds].Visible = true;
                 feedHeaders[numFeeds].Text = header;
                 feedBodies[numFeeds].Text = body;
@@ -391,6 +753,7 @@ namespace LetuDash
                 numFeeds++;
 
                 //Console.Write("Added " + header.ToUpper() + "\n");
+                Properties.Settings.Default.Save();
             }
 
             
@@ -474,56 +837,69 @@ namespace LetuDash
             removalActive = false;
         }
 
-        private void removePinnedFeed(Panel panel, string header)
+        private bool removePinnedFeed(Panel panel, string header, string body)
         {
             if (removalActive)
             {
                 numFeeds--;
-                currentlyPinnedFeeds.Remove(header.ToUpper());
+                Properties.Settings.Default.pinnedFeeds.Remove(header);
+                Properties.Settings.Default.pinnedBodies.Remove(body);
                 panel.Visible = false;
                 cancelRemoval();
-                Console.Write("Removed " + header.ToUpper() + "\n");
+                Console.Write("Removed " + header + "\n");
+                Properties.Settings.Default.Save();
+                return true;
             }
+            else
+                return false;
         }
 
         private void feedImage1_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel1, feedTextHeader1.Text);
+            if (!removePinnedFeed(feedPanel1, feedTextHeader1.Text, feedTextBody1.Text))
+                pinnedFeedOpen(feedTextHeader1.Text);
         }
 
         private void feedImage2_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel2, feedTextHeader2.Text);
+            if (!removePinnedFeed(feedPanel2, feedTextHeader2.Text, feedTextBody2.Text))
+                pinnedFeedOpen(feedTextHeader2.Text);
         }
 
         private void feedImage3_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel3, feedTextHeader3.Text);
+            if (!removePinnedFeed(feedPanel3, feedTextHeader3.Text, feedTextBody3.Text))
+                pinnedFeedOpen(feedTextHeader3.Text);
         }
 
         private void feedImage4_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel4, feedTextHeader4.Text);
+            if (!removePinnedFeed(feedPanel4, feedTextHeader4.Text, feedTextBody4.Text))
+                pinnedFeedOpen(feedTextHeader4.Text);
         }
 
         private void feedImage5_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel5, feedTextHeader5.Text);
+            if (!removePinnedFeed(feedPanel5, feedTextHeader5.Text, feedTextBody5.Text))
+                pinnedFeedOpen(feedTextHeader5.Text);
         }
 
         private void feedImage6_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel6, feedTextHeader6.Text);
+            if(!removePinnedFeed(feedPanel6, feedTextHeader6.Text, feedTextBody6.Text))
+                pinnedFeedOpen(feedTextHeader6.Text);
         }
 
         private void feedImage7_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel7, feedTextHeader7.Text);
+            if (!removePinnedFeed(feedPanel7, feedTextHeader7.Text, feedTextBody7.Text))
+                pinnedFeedOpen(feedTextHeader7.Text);
         }
 
         private void feedImage8_Click(object sender, EventArgs e)
         {
-            removePinnedFeed(feedPanel8, feedTextHeader8.Text);
+            if (!removePinnedFeed(feedPanel8, feedTextHeader8.Text, feedTextBody8.Text))
+                pinnedFeedOpen(feedTextHeader8.Text);
         }
 
         private void setUIMode(Control control)
@@ -539,7 +915,7 @@ namespace LetuDash
                 return;
             }
 
-            if (theme == "light")
+            if (Properties.Settings.Default.theme == "light")
             {
                 control.BackColor = SystemColors.Control;
                 if (control.Text != null)
@@ -596,14 +972,14 @@ namespace LetuDash
                     }
                 }
 
-
+            Properties.Settings.Default.Save();
         }
 
 
 
         private void debugList()
         {
-            foreach(String panel in currentlyPinnedFeeds)
+            foreach(String panel in  Properties.Settings.Default.pinnedFeeds)
             {
                 Console.Write(panel + "\n");
             }
@@ -611,34 +987,77 @@ namespace LetuDash
 
         private void lightButton_Click(object sender, EventArgs e)
         {
-            if(theme == "light")
+            if(Properties.Settings.Default.theme == "light")
             {
                 return;
             }
-            theme = "light";
+           Properties.Settings.Default.theme= "light";
             setUIMode(this);
         }
 
         private void darkButton_Click(object sender, EventArgs e)
         {
-            if (theme == "dark")
+            if (Properties.Settings.Default.theme == "dark")
             {
                 return;
             }
-            theme = "dark";
+           Properties.Settings.Default.theme= "dark";
             setUIMode(this);
         }
 
         private void fahrenheitButton_Click(object sender, EventArgs e)
         {
-            measurementUnit = "F";
+            Properties.Settings.Default.measurementUnit = 'F';
             getWeather();
         }
 
         private void celsiusButton_Click(object sender, EventArgs e)
         {
-            measurementUnit = "C";
+            Properties.Settings.Default.measurementUnit = 'C';
             getWeather();
+        }
+
+
+        private void pinnedFeedOpen(string feedName)
+        {
+           switch (feedName){
+                case "Building Hours":
+                    loadPanel(buildingHoursPanel);
+                    loadBuildingHours();
+                    break;
+                case "Contact LETU":
+                    loadPanel(contactPanel);
+                    loadContactLETU();
+                    break;
+                case "Upcoming Events":
+                    loadPanel(upcomingEventsPanel);
+                    loadUpcomingEvents();
+                    break;
+                case "SAGA Menu":
+                    loadPanel(sagaMenuPanel);
+                    loadSagaMenu();
+                    break;
+                case "All Things YAK":
+                    loadPanel(allThingsYakPanel);
+                    loadAllThingsYak();
+                    break;
+                case "Fear the Sting":
+                    loadPanel(fearTheStingPanel);
+                    loadFearTheSting();
+                    break;
+                case "IM Schedule":
+                    loadPanel(imSchedulePanel);
+                    loadImSchedule();
+                    break;
+                case "FAQ":
+                    loadPanel(faqPanel);
+                    break;
+            }
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
         }
     }
 
