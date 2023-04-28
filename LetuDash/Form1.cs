@@ -37,15 +37,6 @@ namespace LetuDash
         {"campusPicture", new Image[]{Properties.Resources.campus, Properties.Resources.campusDark} }
     };
 
-        Dictionary<string, Image[]> themeImages = new Dictionary<string, Image[]>()
-    {
-        {"homeButton", new Image[] {Properties.Resources.homeButton,Properties.Resources.homeButtonDark} },
-        {"feedsButton", new Image[] {Properties.Resources.feedsIcon,Properties.Resources.feedIconsDark} },
-        {"helpButton", new Image[] {Properties.Resources.help,Properties.Resources.helpDark} },
-        {"settingsButton", new Image[] {Properties.Resources.settingsGear,Properties.Resources.settingsGearDark} },
-        {"campusPicture", new Image[]{Properties.Resources.campus, Properties.Resources.campusDark} }
-    };
-
         public LetuDash()
         {
             InitializeComponent();
@@ -77,8 +68,6 @@ namespace LetuDash
 
             setUIMode(this);
 
-            setUIMode(this);
-
 
             // initializing pinned feed information 
             if (Properties.Settings.Default.pinnedFeeds == null)
@@ -100,18 +89,6 @@ namespace LetuDash
                 {faqPanel.Tag.ToString(), Properties.Resources.question}
             };
 
-
-            pinImage = new Dictionary<string, Image>()
-            {
-                {buildingHoursPanel.Tag.ToString(), Properties.Resources.clock},
-                {contactPanel.Tag.ToString(), Properties.Resources.phone},
-                {upcomingEventsPanel.Tag.ToString(), Properties.Resources.calendar},
-                {sagaMenuPanel.Tag.ToString(), Properties.Resources.pizza},
-                {allThingsYakPanel.Tag.ToString(), Properties.Resources.yak},
-                {fearTheStingPanel.Tag.ToString(), Properties.Resources.basketball},
-                {imSchedulePanel.Tag.ToString(), Properties.Resources.volleyball},
-                {faqPanel.Tag.ToString(), Properties.Resources.question}
-            };
 
             feedPanels = new Panel[8]
             {
