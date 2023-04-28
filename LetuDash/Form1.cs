@@ -40,6 +40,7 @@ namespace LetuDash
         public LetuDash()
         {
             InitializeComponent();
+            InitializeHelpControls();
         }
 
 
@@ -249,6 +250,60 @@ namespace LetuDash
             }
 
             loadPanel(helpPanel);
+            loadHelpInfo();
+        }
+
+        private class HelpInfo
+        {
+            public string title { get; set; }
+            public string content { get; set; }
+        }
+        private Label helpTitle;
+        private TextBox helpContent;
+        private void InitializeHelpControls()
+        {
+            if (helpPanel == null)
+            {
+                helpPanel = new Panel
+                {
+                    Name = "helpPanel",
+                    Location = new Point(0, 0),
+                    Size = new Size(500, 300),
+                    Visible = false,
+                };
+                this.Controls.Add(helpPanel);
+            }
+
+            helpTitle = new Label
+            {
+                Name = "helpTitle",
+                Location = new Point(10, 10),
+                AutoSize = true,
+                Font = new Font("Microsoft Sans Serif", 12, FontStyle.Bold)
+            };
+            helpPanel.Controls.Add(helpTitle);
+
+            helpContent = new TextBox
+            {
+                Name = "helpContent",
+                Location = new Point(10, 40),
+                Size = new Size(300, 200),
+                Multiline = true,
+                ReadOnly = true,
+                ScrollBars = ScrollBars.Vertical
+            };
+            helpPanel.Controls.Add(helpContent);
+        }
+        public void loadHelpInfo()
+        {
+            using (StreamReader r = new StreamReader("..\\..\\databases\\help_info.json"))
+            {
+                string json = r.ReadToEnd();
+                HelpInfo data = JsonConvert.DeserializeObject<HelpInfo>(json);
+
+                helpTitle.Text = data.title;
+                helpContent.Text = data.content;
+            }
         }
 
         private void buildingHoursButton_Click(object sender, EventArgs e)
