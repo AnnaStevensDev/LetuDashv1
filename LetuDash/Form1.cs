@@ -254,7 +254,7 @@ namespace LetuDash
             helpTitle = new Label
             {
                 Name = "helpTitle",
-                Location = new Point(10, 10), // Adjust the position according to your preferences
+                Location = new Point(10, 10), 
                 AutoSize = true,
                 Font = new Font("Microsoft Sans Serif", 12, FontStyle.Bold)
             };
@@ -263,8 +263,8 @@ namespace LetuDash
             helpContent = new TextBox
             {
                 Name = "helpContent",
-                Location = new Point(10, 40), // Adjust the position according to your preferences
-                Size = new Size(300, 200), // Adjust the size according to your preferences
+                Location = new Point(10, 40), 
+                Size = new Size(300, 200), 
                 Multiline = true,
                 ReadOnly = true,
                 ScrollBars = ScrollBars.Vertical
