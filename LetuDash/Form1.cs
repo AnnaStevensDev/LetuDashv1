@@ -175,7 +175,14 @@ namespace LetuDash
 
             currentPanel.Visible = false;
 
-            newPanel.Visible = true;
+            try
+            {
+                newPanel.Visible = true;
+            }
+            catch (System.ArgumentException)
+            {
+                // Exception handling?
+            }
             currentPanel = newPanel;
             feedName.Text = currentPanel.Tag.ToString();
         }
@@ -894,6 +901,7 @@ namespace LetuDash
 
             if (Properties.Settings.Default.theme == "light")
             {
+                this.campusPicture.Image = Properties.Resources.blurredCampus;
                 control.BackColor = SystemColors.Control;
                 if (control.Text != null)
                 {
@@ -903,7 +911,6 @@ namespace LetuDash
                 {
                     control.ForeColor = SystemColors.Control;
                 }
-                this.campusPicture.Image = Properties.Resources.campus;
                 if (control.BackgroundImage != null)
                 {
                     try
